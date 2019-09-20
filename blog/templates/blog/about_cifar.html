@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h2>CIFAR-10の説明</h2>
+    <p>{{ text }}</p>
+    <p>詳細は下記URLを参照してください。</p>
+    <a href=https://newtechnologylifestyle.net/cifar-10%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%82%BB%E3%83%83%E3%83%88%E3%82%92%E7%94%A8%E3%81%84%E3%81%A6cnn%E3%81%AE%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%82%92%E8%A1%8C%E3%81%A3%E3%81%A6%E3%81%BF/>
+        CIFAR-10のデータセットを用いてCNNの画像認識を行ってみる
+    </a>
+    <h5 class="mt-4">YouTube - TensorFlow Tutorial #06 CIFAR-10</h5>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/3BXfw_1_TF4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+{% endblock content %}

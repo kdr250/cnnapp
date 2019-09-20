@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h2>CNNの説明</h2>
+    <p>{{ text }}</p>
+    <p>詳細は下記URLを参照してください。</p>
+    <a href=https://www.atmarkit.co.jp/ait/articles/1804/23/news138.html>
+        第4回　CNN（Convolutional Neural Network）を理解しよう（TensorFlow編）
+    </a>
+    <h5 class="mt-4">YouTube - ディープラーニング講座 畳み込みニューラルネットワークの概要</h5>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/Kr84vlulqTA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+{% endblock content %}

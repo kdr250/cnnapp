@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <small class="text-muted">{{ post.date_posted }}</small>
+                    <small class="text-muted ml-2">投稿者：{{ post.author }} さん</small>
+                    <a class="btn btn-outline-secondary ml-5" href="{% url 'blog-update' object.id %}">更新</a>
+                    <a class="btn btn-outline-danger ml-1" href="{% url 'blog-delete' object.id %}">削除</a>
+                </div>
+
+                <h2>{{ object.title }}</h2>
+                <img class="rounded mt-2 mb-2" src="{{ object.image.url }}">
+                <p><a href="{% url 'label-list' object.label %}">#この画像は{{ label_jp }}です!</a></p>
+                <p class="article-content mt-3">{{ object.content }}</p>
+            </div>
+        </article>
+{% endblock content %}
