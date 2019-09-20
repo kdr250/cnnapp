@@ -84,11 +84,11 @@ WSGI_APPLICATION = 'cnnapp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'cnnapp', #　データベースを作成してください
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'cnnapp', # データベースを作成してください
         'USER': 'root', # ログインユーザー名
-        'HOST': '',
-        'PORT': '',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
