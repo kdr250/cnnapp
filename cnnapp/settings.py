@@ -26,14 +26,14 @@ SECRET_KEY = 'u=v^4(@(mz6kceaok%=tw=xbc526_8%_f+3!cbk$sz&pocdt!h'
 # DEBUG = True
 DEBUG = False
 
-try:
-    from .local_settings import *
-except ImportError:
-    pass
+# try:
+#     from .local_settings import *
+# except ImportError:
+#     pass
 
-if not DEBUG:
-    import django_heroku
-    django_heroku.settings(locals())
+# if not DEBUG:
+#     import django_heroku
+#     django_heroku.settings(locals())
 
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
