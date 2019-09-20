@@ -125,4 +125,4 @@ dmypy.json
 cnnvenv
 .vscode
 .DS_Store
-media/uploads/
+media/uploads/*
