@@ -31,8 +31,7 @@ class LabelListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
-    
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         post = Post.objects.get(id=self.kwargs['pk'])
@@ -42,12 +41,6 @@ class PostDetailView(DetailView):
             label_jp = '判別不可'
         context['label_jp'] = label_jp
         return context
-        
-"""
-class PostCreateView(CreateView):
-    model = Post
-    fields = ['title', 'content', 'author', 'image']
-"""
 
 class PostCreateView(TemplateView):
     def __init__(self):

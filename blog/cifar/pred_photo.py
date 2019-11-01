@@ -11,12 +11,8 @@ from . import cnn_model
 
 labels = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
 im_size = (32 * 32 * 3)
-# path = os.path.dirname(os.path.abspath(__file__))
 
-# kerasキャッシュ削除
-# keras.backend.clear_session()
-
-# Tensor("dense_2/Softmax:0", shape=(?, 10), dtype=float32) is not an element of this graph.対応
+# エラー対応:Tensor("dense_2/Softmax:0", shape=(?, 10), dtype=float32) is not an element of this graph
 graph = tf.get_default_graph()
 
 # モデルデータ読み込み
@@ -26,7 +22,6 @@ model.load_weights(model_file_path)
 
 def check_photo(upload_image):
     # アップロードされた画像ファイルをメモリ上でOpenCVのimageに格納
-    # img = np.asarray(Image.open(upload_image))
     img = Image.open(upload_image)
     img = img.convert("RGB")    # 色空間をRGBにする
     img = img.resize((32, 32))    # サイズ変更

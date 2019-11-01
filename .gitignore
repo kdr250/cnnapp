@@ -122,7 +122,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-cnnvenv
 .vscode
 .DS_Store
 /media/uploads/*
