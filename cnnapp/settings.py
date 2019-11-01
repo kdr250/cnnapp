@@ -147,9 +147,9 @@ if not DEBUG:
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-    # S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+    S3_URL = f'https://s3-ap-northeast-1.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}'
 
     AWS_LOCATION = 'cnnapp'
     AWS_DEFAULT_ACL = None
-    MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+    MEDIA_URL = f'{S3_URL}/{AWS_LOCATION}/'
     AWS_S3_FILE_OVERWRITE = False
