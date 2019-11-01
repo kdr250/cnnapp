@@ -120,8 +120,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MODEL_FILE_PATH = os.path.join(BASE_DIR, 'blog/cifar/model/cifar10_cnn.h5')
 
-
-
 # 本番環境設定
 if not DEBUG:
     
@@ -148,7 +146,6 @@ if not DEBUG:
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
     S3_URL = f'https://s3-ap-northeast-1.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}'
 
     AWS_LOCATION = 'cnnapp'
