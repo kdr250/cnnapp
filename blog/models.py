@@ -2,6 +2,8 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.core.files.storage import default_storage
+from io import BytesIO
 from PIL import Image
 
 # EXAMPLE_FOO = ((1, 'foo1'), (2, 'foo2'))
@@ -16,7 +18,7 @@ class Post(models.Model):
     content = models.TextField(verbose_name='投稿内容')
     date_posted = models.DateTimeField(default=timezone.now, verbose_name='投稿日',)
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='投稿者',)
-    image = models.ImageField(default='default.jpg', upload_to='uploads', verbose_name='写真',)
+    image = models.ImageField(default='default.jpg', upload_to=f'uploads/%Y%m%d/', verbose_name='写真',)
     label = models.TextField(choices=cifar_list, null=True, blank=True, verbose_name='ラベル',)
 
     def __str__(self):
@@ -32,9 +34,16 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         super(Post, self).save(*args, **kwargs)
 
-        img = Image.open(self.image.path)
+        memfile = BytesIO()
 
-        if img.height > 300 or img.width > 300:
-            output_size = (300, 300)
-            img.thumbnail(output_size)
-            img.save(self.image.path)
+        # img = Image.open(self.image.path)
+        img = Image.open(self.image)
+
+        if img.height > 600 or img.width > 600:
+            output_size = (600, 600)
+            img.thumbnail(output_size, Image.ANTIALIAS)
+            img.save(memfile, 'JPEG', quality=95)
+            default_storage.save(self.image.name, memfile)
+            memfile.close()
+            img.close()
+

@@ -17,6 +17,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DEBUG = False
 
+SECRET_KEY = os.environ.get('CNNAPP_SECRET_KEY')
+
 try:
     from .local_settings import *
 except ImportError:
@@ -36,6 +38,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'crispy_forms',
     'storages',
+    'django_cleanup',
 ]
 
 MIDDLEWARE = [
@@ -68,10 +71,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'cnnapp.wsgi.application'
-
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
 
 
 # Password validation
@@ -106,24 +105,17 @@ USE_L10N = True
 
 USE_TZ = False
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static/'
-
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 MODEL_FILE_PATH = os.path.join(BASE_DIR, 'blog/cifar/model/cifar10_cnn.h5')
 
 # 本番環境設定
 if not DEBUG:
-    
-    SECRET_KEY = os.environ.get('CNNAPP_SECRET_KEY')
 
     ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']    
 
@@ -143,12 +135,25 @@ if not DEBUG:
     DATABASES['default'].update(db_from_env)
 
     # AWS S3設定
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
     S3_URL = f'https://s3-ap-northeast-1.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}'
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400',
+    }
 
-    AWS_LOCATION = 'cnnapp'
+    # static
+    AWS_LOCATION = 'static'
     AWS_DEFAULT_ACL = None
-    MEDIA_URL = f'{S3_URL}/{AWS_LOCATION}/'
-    AWS_S3_FILE_OVERWRITE = False
+    STATIC_URL = f'{S3_URL}/{AWS_LOCATION}/'
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+    # media
+    AWS_LOCATION_MEDIA = 'media'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+    DEFAULT_FILE_STORAGE = 'localupload.storage_backends.MediaStorage'
+
